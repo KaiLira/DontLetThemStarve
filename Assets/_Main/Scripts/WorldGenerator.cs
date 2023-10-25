@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -11,8 +10,7 @@ using UnityEngine.Tilemaps;
 public class WorldGenerator : MonoBehaviour
 {
     [SerializeField]
-    List<Threshold> m_thresholds;
-
+    private bool m_generateOnStart = true;
     [SerializeField]
     private bool m_randomizeSeed = true;
     [SerializeField]
@@ -21,6 +19,9 @@ public class WorldGenerator : MonoBehaviour
     private float m_frequency = 0f;
     [SerializeField]
     private float m_jitter = 0f;
+
+    [SerializeField]
+    List<Threshold> m_thresholds;
 
     private Noise m_mainNoise;
     private Noise m_secondaryNoise;
@@ -67,11 +68,28 @@ public class WorldGenerator : MonoBehaviour
             m_seed = DateTime.Now.GetHashCode();
 
         m_mainNoise = new WorleyNoise(m_seed, m_frequency, m_jitter);
-        m_secondaryNoise = new WorleyNoise(m_seed >> 8, m_frequency * 2f, m_jitter * 1.5f, 1f / 3f);
+        m_secondaryNoise = new WorleyNoise(m_seed >> 8, m_frequency * 2f, m_jitter * 1.5f, 1f/3f);
 
         GenerateMap(100, 100);
     }
+
+    private void Start()
+    {
+        if (m_generateOnStart)
+        {
+            GenerateWorld();
+            StartCoroutine(ScanNextFrame());
+        }
+    }
+
+
+    IEnumerator ScanNextFrame()
+    {
+        yield return 0;
+        AstarPath.active.Scan();
+    }
 }
+
 
 [Serializable]
 struct Threshold
