@@ -46,7 +46,8 @@ namespace Kaicita
         {
             GameObject map = new("Map");
             Tilemap tilemap = map.AddComponent<Tilemap>();
-            map.AddComponent<TilemapRenderer>();
+            TilemapRenderer renderer = map.AddComponent<TilemapRenderer>();
+            renderer.sortingLayerName = "Terrain";
             map.AddComponent<TilemapCollider2D>();
             map.transform.SetParent(transform, false);
 
