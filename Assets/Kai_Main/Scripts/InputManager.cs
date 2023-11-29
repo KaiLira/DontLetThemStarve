@@ -11,6 +11,9 @@ namespace Kaicita
     {
         [SerializeField]
         private float m_cameraSpeed;
+        [SerializeField]
+        private GameObject m_pauseMenu;
+
         private Vector2 m_cameraVel = Vector2.zero;
         private GameObject m_selected = null;
         private StateMachine m_panSM = null;
@@ -22,6 +25,8 @@ namespace Kaicita
             s_panning = new Panning(gameObject);
             s_not_panning = new NotPanning(gameObject);
             m_panSM = new StateMachine(s_not_panning);
+
+            Time.timeScale = 1.0f;
         }
 
         private void Update()
@@ -79,6 +84,19 @@ namespace Kaicita
                 Transform dest = m_selected.transform.parent.GetChild(0);
                 dest.position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 m_selected = null;
+            }
+        }
+
+        public void OnPause(InputAction.CallbackContext ctx)
+        {
+            if (ctx.phase == InputActionPhase.Performed)
+            {
+                if (m_pauseMenu.activeSelf)
+                    Time.timeScale = 1f;
+                else
+                    Time.timeScale = 0f;
+
+                m_pauseMenu.SetActive(!m_pauseMenu.activeSelf);
             }
         }
     }
