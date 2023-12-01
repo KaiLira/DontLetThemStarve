@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 5503626823445953489}
   - component: {fileID: 3334707464331492086}
   - component: {fileID: 4510810815233263048}
+  - component: {fileID: 4326473281932440560}
+  - component: {fileID: 1965236986176506159}
   m_Layer: 0
   m_Name: Body
   m_TagString: Player
@@ -196,7 +198,74 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0e4364518ae794998702d4e7e4bace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_destination: {fileID: 5928703132917128580}
+--- !u!114 &4326473281932440560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197590049806134424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c072b6c8591c5b846ba65b93893930de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 5
+  m_substance: 0
+  m_onHealthChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1965236986176506159}
+        m_TargetAssemblyTypeName: EventLogger, Assembly-CSharp
+        m_MethodName: PrintString
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Took Damage
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_onHealthDeplete:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1965236986176506159}
+        m_TargetAssemblyTypeName: EventLogger, Assembly-CSharp
+        m_MethodName: PrintString
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Dieded
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1197590049806134424}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Dieded
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1965236986176506159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197590049806134424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa8b90aa1e6e5f34984ef7fe323dff0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5896028654467337994
 GameObject:
   m_ObjectHideFlags: 0

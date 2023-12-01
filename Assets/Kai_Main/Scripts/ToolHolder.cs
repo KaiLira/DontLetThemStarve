@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ToolHolder : MonoBehaviour
+namespace Kaicita
 {
-    private Tool m_currentTool = null;
-
-    public void Pickup(GameObject toolPrefab)
+    public class ToolHolder : MonoBehaviour
     {
-        if (m_currentTool != null)
-            m_currentTool.Drop();
-        m_currentTool = null;
+        private Tool m_currentTool = null;
 
-        var newTool = Instantiate(toolPrefab, transform);
-        m_currentTool = newTool.GetComponent<Tool>();
+        public void Pickup(GameObject toolPrefab)
+        {
+            if (m_currentTool != null)
+                m_currentTool.Drop();
+            m_currentTool = null;
+
+            var newTool = Instantiate(toolPrefab, transform);
+            m_currentTool = newTool.GetComponent<Tool>();
+        }
     }
 }

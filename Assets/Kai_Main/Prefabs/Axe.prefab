@@ -46,6 +46,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_itemPrefab: {fileID: 7589102055333239177, guid: 1c58620bd65ddab468dbb52908160e67, type: 3}
+  m_range: 1
+  m_cooldown: 0.5
+  m_damage: 1
+  m_targetSubstance: 1
 --- !u!1 &5636006838492772729
 GameObject:
   m_ObjectHideFlags: 0
