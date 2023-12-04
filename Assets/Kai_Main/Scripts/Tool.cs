@@ -18,10 +18,20 @@ namespace Kaicita
         [SerializeField]
         Substance m_targetSubstance;
 
+        Allegiance m_allegiance = Allegiance.None;
+
         public void Drop()
         {
             Instantiate(m_itemPrefab, transform.position + Vector3.right, Quaternion.identity);
             Destroy(gameObject);
+        }
+
+        private void Awake()
+        {
+            if (transform.parent.TryGetComponent<Health>(out var parentHealth))
+            {
+                m_allegiance = parentHealth.Allegiance;
+            }
         }
 
         private void Update()
@@ -35,6 +45,10 @@ namespace Kaicita
             m_timer = 0f;
 
             foreach (var hittable in Health.Damageables[m_targetSubstance])
+            {
+                if (m_allegiance != Allegiance.None && m_allegiance == hittable.Allegiance)
+                    continue;
+
                 if (
                     hittable.gameObject != transform.parent.gameObject &&
                     Vector3.Distance(transform.position, hittable.transform.position) <= m_range
@@ -43,6 +57,8 @@ namespace Kaicita
                     hittable.Damage(m_damage);
                     return;
                 }
+            }
+                
         }
     }
 }

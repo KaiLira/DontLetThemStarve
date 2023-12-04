@@ -212,6 +212,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHealth: 5
   m_substance: 0
+  m_alleigance: 1
   m_onHealthChange:
     m_PersistentCalls:
       m_Calls:

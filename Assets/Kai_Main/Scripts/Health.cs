@@ -12,6 +12,13 @@ namespace Kaicita
         Wood = 1,
     }
 
+    public enum Allegiance
+    {
+        None = 0,
+        Player = 1,
+        Enemy = 2,
+    }
+
     public class Health : MonoBehaviour
     {
         [SerializeField]
@@ -19,9 +26,13 @@ namespace Kaicita
         [SerializeField]
         private Substance m_substance;
         [SerializeField]
+        private Allegiance m_alleigance;
+        [SerializeField]
         private UnityEvent<float> m_onHealthChange;
         [SerializeField]
         private UnityEvent m_onHealthDeplete;
+
+        public Allegiance Allegiance { get { return m_alleigance; } }
 
         private int m_currentHealth;
 
