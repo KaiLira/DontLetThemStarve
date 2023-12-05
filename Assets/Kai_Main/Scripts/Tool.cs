@@ -12,13 +12,16 @@ namespace Kaicita
         float m_range;
         [SerializeField]
         float m_cooldown;
-        float m_timer;
+        float m_hitTimer;
         [SerializeField]
         int m_damage;
         [SerializeField]
         Substance m_targetSubstance;
 
         Allegiance m_allegiance = Allegiance.None;
+
+        float m_animTimer;
+        bool m_inPlace = true;
 
         public void Drop()
         {
@@ -36,13 +39,24 @@ namespace Kaicita
 
         private void Update()
         {
-            if (m_timer <= m_cooldown)
+            if (!m_inPlace)
             {
-                m_timer += Time.deltaTime;
+                m_animTimer += Time.deltaTime;
+                if (m_animTimer >= m_cooldown / 5)
+                {
+                    m_animTimer = 0;
+                    m_inPlace = true;
+                    transform.rotation = Quaternion.identity;
+                }
+            }
+
+            if (m_hitTimer <= m_cooldown)
+            {
+                m_hitTimer += Time.deltaTime;
                 return;
             }
 
-            m_timer = 0f;
+            m_hitTimer = 0f;
 
             foreach (var hittable in Health.Damageables[m_targetSubstance])
             {
@@ -51,10 +65,16 @@ namespace Kaicita
 
                 if (
                     hittable.gameObject != transform.parent.gameObject &&
-                    Vector3.Distance(transform.position, hittable.transform.position) <= m_range
+                    Vector2.Distance(transform.position, hittable.transform.position) <= m_range
                     )
                 {
                     hittable.Damage(m_damage);
+                    m_inPlace = false;
+                    float angle = Vector2.SignedAngle(
+                        transform.position,
+                        hittable.transform.position
+                        ) * Mathf.Rad2Deg;
+                    transform.rotation = Quaternion.Euler(0, 0, angle);
                     return;
                 }
             }
