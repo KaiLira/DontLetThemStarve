@@ -13,6 +13,8 @@ namespace Kaicita
         private float m_cameraSpeed;
         [SerializeField]
         private GameObject m_pauseMenu;
+        [SerializeField]
+        private GameObject m_tutorialScreen;
 
         private Vector2 m_cameraVel = Vector2.zero;
         private GameObject m_selected = null;
@@ -97,6 +99,7 @@ namespace Kaicita
                     Time.timeScale = 0f;
 
                 m_pauseMenu.SetActive(!m_pauseMenu.activeSelf);
+                m_tutorialScreen?.SetActive(!m_tutorialScreen.activeSelf);
             }
         }
     }
